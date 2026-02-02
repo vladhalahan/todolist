@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -28,7 +30,11 @@ function GoalInput(props) {
 
   return (
     <Modal visible={props.visible} animationType="slide">
-      <View style={styles.modalRoot}>
+      <KeyboardAvoidingView
+        style={styles.modalRoot}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+      >
         <View style={styles.formContainer}>
           <View style={styles.inputSection}>
             <Image
@@ -73,7 +79,7 @@ function GoalInput(props) {
             </Pressable>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
@@ -85,7 +91,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#311b6b',
     paddingHorizontal: 24,
-    justifyContent: 'center',
+    paddingTop: 80,
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   formContainer: {
